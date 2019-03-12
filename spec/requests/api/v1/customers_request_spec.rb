@@ -5,9 +5,20 @@ describe "Customers API" do
 
     get '/api/v1/customers.json'
 
-    customers = JSON.parse(response.body)
+    customers = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
     expect(customers.count).to eq(3)
+  end
+
+  it "returns specific customer" do
+    customer = create(:customer, first_name:'me')
+
+    get "/api/v1/customers/#{customer.id}"
+
+    customer = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(customer["attributes"]["first_name"]).to eq('me')
   end
 end

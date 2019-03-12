@@ -5,10 +5,21 @@ describe "Merchants API" do
 
     get '/api/v1/merchants.json'
 
-    merchants = JSON.parse(response.body)
+    merchants = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
     expect(merchants.count).to eq(3)
+  end
+
+  it "returns a merchant" do
+    merchant = create(:merchant)
+
+    get "/api/v1/merchants/#{merchant.id}"
+
+    merchant_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
 
   it "returns all items for a merchant" do
@@ -19,12 +30,12 @@ describe "Merchants API" do
 
     get "/api/v1/merchants/#{merchant.id}/items"
 
-    items = JSON.parse(response.body)
+    items = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
     expect(items.count).to eq(2)
-    expect(items.first["name"]).to eq("item1")
-    expect(items.last["name"]).to eq("item2")
+    expect(items.first["attributes"]["name"]).to eq("item1")
+    expect(items.last["attributes"]["name"]).to eq("item2")
   end
 
   it "returns all invoices for a merchant" do
@@ -34,15 +45,15 @@ describe "Merchants API" do
 
     get "/api/v1/merchants/#{merchant.id}/invoices"
 
-    invoices = JSON.parse(response.body)
+    invoices = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
     expect(invoices.count).to eq(2)
 
-    expect(invoices.first["id"]).to eq(invoice.id)
-    expect(invoices.last["id"]).to eq(invoice2.id)
+    expect(invoices.first["attributes"]["id"]).to eq(invoice.id)
+    expect(invoices.last["attributes"]["id"]).to eq(invoice2.id)
 
-    expect(invoices.first["status"]).to eq('shipped')
-    expect(invoices.last["status"]).to eq('not shipped')
+    expect(invoices.first["attributes"]["status"]).to eq('shipped')
+    expect(invoices.last["attributes"]["status"]).to eq('not shipped')
   end
 end
