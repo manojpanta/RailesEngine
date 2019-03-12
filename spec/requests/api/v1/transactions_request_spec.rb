@@ -74,7 +74,8 @@ describe "Transaction API" do
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
   it "find transaction  by created_at" do
-    transaction = create(:transaction,created_at: "2012-03-27 14:56:04 UTC")
+    transaction1 = create(:transaction)
+    transaction = create(:transaction,created_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/transactions/find?created_at=#{transaction.created_at}"
 
@@ -84,7 +85,8 @@ describe "Transaction API" do
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
   it "find transaction  by updated_at" do
-    transaction = create(:transaction,updated_at: "2012-03-27 14:56:04 UTC")
+    transaction1 = create(:transaction)
+    transaction = create(:transaction,updated_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/transactions/find?updated_at=#{transaction.updated_at}"
 

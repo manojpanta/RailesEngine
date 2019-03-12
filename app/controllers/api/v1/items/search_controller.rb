@@ -1,6 +1,11 @@
 class Api::V1::Items::SearchController < ApplicationController
   def show
-    render json: ItemSerializer.new(Item.find_by(search_params))
+    if params[:unit_price]
+      params[:unit_price] = params[:unit_price].delete('.')
+      render json: ItemSerializer.new(Item.find_by(unit_price: params[:unit_price]))
+    else
+      render json: ItemSerializer.new(Item.find_by(search_params))
+    end
   end
 
 

@@ -77,7 +77,8 @@ describe "Items API" do
   end
 
   it "find item  by created_at" do
-    item = create(:item, created_at: "2012-03-27 14:53:59 UTC")
+    item1 = create(:item)
+    item = create(:item, created_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/items/find?created_at=#{item.created_at}"
 
@@ -87,7 +88,8 @@ describe "Items API" do
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
   it "find item  by updated_at" do
-    item = create(:item, updated_at: "2012-03-27 14:53:59 UTC")
+    item1 = create(:item)
+    item = create(:item, updated_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/items/find?updated_at=#{item.updated_at}"
 

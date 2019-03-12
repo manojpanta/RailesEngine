@@ -53,24 +53,27 @@ describe "Customers API" do
   end
 
   it "find by customer created at" do
-    customer = create(:customer, created_at: "2012-03-27 14:56:04 UTC" )
+    customer1 = create(:customer)
+    customer = create(:customer, created_at: "2012-03-27T14:56:04.000Z" )
 
     get "/api/v1/customers/find?created_at=#{customer.created_at}"
 
     customer_r = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(customer_r["attributes"]["created_at"]).to eq("2012-03-27T14:56:04.000Z")
+    expect(customer_r["attributes"]["id"]).to eq(customer.id)
   end
 
   it "find by customer updated at" do
-    customer = create(:customer, updated_at: "2012-03-27 14:56:04 UTC" )
+    customer1 = create(:customer)
+    customer = create(:customer, updated_at: "2012-03-27T14:56:04.000Z" )
 
     get "/api/v1/customers/find?updated_at=#{customer.updated_at}"
+
 
     customer_r = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(customer_r["attributes"]["updated_at"]).to eq("2012-03-27T14:56:04.000Z")
+    expect(customer_r["attributes"]["id"]).to eq(customer.id)
   end
 end

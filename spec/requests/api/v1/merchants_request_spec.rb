@@ -44,7 +44,8 @@ describe "Merchants API" do
   end
 
   it "find merchant  by created_at" do
-    merchant = create(:merchant, created_at: "2012-03-27 14:53:59 UTC")
+    merchant1 = create(:merchant)
+    merchant = create(:merchant, created_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
 
@@ -54,7 +55,8 @@ describe "Merchants API" do
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
   it "find merchant  by updated_at" do
-    merchant = create(:merchant, updated_at: "2012-03-27 14:53:59 UTC")
+    merchant1 = create(:merchant)
+    merchant = create(:merchant, updated_at: "2012-03-27T14:56:04.000Z")
 
     get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
 
