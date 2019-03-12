@@ -8,6 +8,15 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
     end
   end
 
+  def index
+    if params[:unit_price]
+      params[:unit_price] = params[:unit_price].delete('.')
+      render json: InvoiceItemSerializer.new(InvoiceItem.where(unit_price: params[:unit_price]))
+    else
+      render json: InvoiceItemSerializer.new(InvoiceItem.where(search_params))
+    end
+  end
+
 
   private
 

@@ -8,6 +8,15 @@ class Api::V1::Items::SearchController < ApplicationController
     end
   end
 
+  def index
+    if params[:unit_price]
+      params[:unit_price] = params[:unit_price].delete('.')
+      render json: ItemSerializer.new(Item.where(unit_price: params[:unit_price]))
+    else
+      render json: ItemSerializer.new(Item.where(search_params))
+    end
+  end
+
 
   private
   def search_params
