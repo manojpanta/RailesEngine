@@ -31,4 +31,48 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
+
+  it "find item  by name" do
+    item = create(:item, name: 'this')
+
+    get "/api/v1/items/find?name=#{item.name}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
+
+  it "find item  by description" do
+    item = create(:item, description: "this is item which is not really an item")
+
+    get "/api/v1/items/find?description=#{item.description}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
+  it "find item  by unit_price" do
+    item = create(:item, unit_price: 1234)
+
+    get "/api/v1/items/find?unit_price=#{item.unit_price}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
+  it "find item  by merchant id" do
+    merchant = create(:merchant)
+
+    item = create(:item, merchant: merchant)
+
+    get "/api/v1/items/find?merchant_id=#{item.merchant_id}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
 end
