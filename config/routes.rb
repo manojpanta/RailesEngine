@@ -13,6 +13,10 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
       end
 
+      namespace :transactions do
+        get 'find', to: 'search#show'
+      end
+
       namespace :invoice_items do
         get 'find', to: 'search#show'
       end

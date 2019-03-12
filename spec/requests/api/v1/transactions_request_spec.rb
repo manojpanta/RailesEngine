@@ -21,4 +21,76 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
+  it "find transaction  by id" do
+    transaction = create(:transaction)
+
+    get "/api/v1/transactions/find?id=#{transaction.id}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by credit_card_number" do
+    transaction = create(:transaction, credit_card_number: 4654405418249632)
+
+    get "/api/v1/transactions/find?credit_card_number=#{transaction.credit_card_number}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by result" do
+    transaction = create(:transaction, result: "success")
+
+    get "/api/v1/transactions/find?result=#{transaction.result}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by invoice_id" do
+    invoice = create(:invoice)
+    transaction = create(:transaction, invoice: invoice)
+
+    get "/api/v1/transactions/find?invoice_id=#{transaction.invoice_id}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by credit_card_expiration_date" do
+    transaction = create(:transaction,credit_card_expiration_date: 1233)
+
+    get "/api/v1/transactions/find?credit_card_expiration_date=#{transaction.credit_card_expiration_date}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by created_at" do
+    transaction = create(:transaction,created_at: "2012-03-27 14:56:04 UTC")
+
+    get "/api/v1/transactions/find?created_at=#{transaction.created_at}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+  it "find transaction  by updated_at" do
+    transaction = create(:transaction,updated_at: "2012-03-27 14:56:04 UTC")
+
+    get "/api/v1/transactions/find?updated_at=#{transaction.updated_at}"
+
+    transaction_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
 end

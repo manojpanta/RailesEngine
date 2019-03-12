@@ -78,4 +78,24 @@ describe "Invoice Items API" do
     expect(response).to be_successful
     expect(invoice_item_r["attributes"]["id"]).to eq(invoice_item.id)
   end
+  it "find invoice items by created_at" do
+    invoice_item = create(:invoice_item, created_at: "2012-03-27 14:56:04 UTC")
+
+    get "/api/v1/invoice_items/find?created_at=#{invoice_item.created_at}"
+
+    invoice_item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_item_r["attributes"]["id"]).to eq(invoice_item.id)
+  end
+  it "find invoice items by updated_at" do
+    invoice_item = create(:invoice_item, updated_at: "2012-03-27 14:56:04 UTC")
+
+    get "/api/v1/invoice_items/find?updated_at=#{invoice_item.updated_at}"
+
+    invoice_item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_item_r["attributes"]["id"]).to eq(invoice_item.id)
+  end
 end
