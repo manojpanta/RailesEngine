@@ -43,6 +43,27 @@ describe "Merchants API" do
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
 
+  it "find merchant  by created_at" do
+    merchant = create(:merchant, created_at: "2012-03-27 14:53:59 UTC")
+
+    get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
+
+    merchant_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
+  end
+  it "find merchant  by updated_at" do
+    merchant = create(:merchant, updated_at: "2012-03-27 14:53:59 UTC")
+
+    get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
+
+    merchant_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
+  end
+
   it "returns all items for a merchant" do
     merchant = create(:merchant)
 

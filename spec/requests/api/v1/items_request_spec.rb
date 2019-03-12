@@ -75,4 +75,25 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
+
+  it "find item  by created_at" do
+    item = create(:item, created_at: "2012-03-27 14:53:59 UTC")
+
+    get "/api/v1/items/find?created_at=#{item.created_at}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
+  it "find item  by updated_at" do
+    item = create(:item, updated_at: "2012-03-27 14:53:59 UTC")
+
+    get "/api/v1/items/find?updated_at=#{item.updated_at}"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
 end

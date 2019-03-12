@@ -75,4 +75,24 @@ describe "Invoices API" do
     expect(response).to be_successful
     expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
   end
+  it "find invoice  by created_at" do
+    invoice = create(:invoice, created_at: '2012-03-25 09:54:09 UTC')
+
+    get "/api/v1/invoices/find?created_at=#{invoice.created_at}"
+
+    invoice_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
+  end
+  it "find invoice  by updated_at" do
+    invoice = create(:invoice, updated_at: '2012-03-25 09:54:09 UTC')
+
+    get "/api/v1/invoices/find?updated_at=#{invoice.updated_at}"
+
+    invoice_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
+  end
 end
