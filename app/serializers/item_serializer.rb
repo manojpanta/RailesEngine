@@ -5,6 +5,4 @@ class ItemSerializer
   attribute :unit_price do |object|
     Money.new(object.unit_price, "USD").to_s
   end
-
-
 end

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
         resources :items, only: [:index]
         resources :invoices, only: [:index]
       end
+      namespace :customers do
+        get 'find', to: 'search#show'
+      end
       resources :customers
       resources :invoices
       resources :transactions
