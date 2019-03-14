@@ -98,6 +98,7 @@ describe "Transaction API" do
 
   it "returns the associated invoice" do
     invoice = create(:invoice)
+    invoice2 = create(:invoice)
     transaction = create(:transaction, invoice: invoice)
 
     get "/api/v1/transactions/#{transaction.id}/invoice"
@@ -106,5 +107,6 @@ describe "Transaction API" do
 
     expect(response).to be_successful
     expect(invoice_returned["attributes"]["id"]).to eq(invoice.id)
+    expect(invoice_returned["attributes"]["id"]).to_not eq(invoice2.id)
   end
 end

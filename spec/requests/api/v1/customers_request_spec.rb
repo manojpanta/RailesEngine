@@ -76,4 +76,50 @@ describe "Customers API" do
     expect(response).to be_successful
     expect(customer_r["attributes"]["id"]).to eq(customer.id)
   end
+
+  it "returns a collection of associated invoices" do
+    customer = create(:customer)
+    invoice1 = create(:invoice, customer: customer)
+    invoice2 = create(:invoice, customer: customer)
+    invoice3 = create(:invoice)
+
+    get "/api/v1/customers/#{customer.id}/invoices"
+
+
+    invoices_r = JSON.parse(response.body)["data"]
+
+    invoice_ids = invoices_r.pluck('id')
+
+    expect(response).to be_successful
+    expect(invoice_ids).to include(invoice1.id.to_s)
+    expect(invoice_ids).to include(invoice2.id.to_s)
+    expect(invoice_ids).to_not include(invoice3.id.to_s)
+  end
+
+  it "returns a collection of associated transactions" do
+    customer = create(:customer)
+
+    invoice1 = create(:invoice, customer: customer)
+    invoice2 = create(:invoice, customer: customer)
+
+    transaction1 = create(:transaction, invoice: invoice1)
+    transaction2 = create(:transaction, invoice: invoice1)
+    transaction3 = create(:transaction, invoice: invoice2)
+    transaction4 = create(:transaction)
+    transaction5 = create(:transaction)
+
+    get "/api/v1/customers/#{customer.id}/transactions"
+
+
+    transactions = JSON.parse(response.body)["data"]
+    transaction_ids = transactions.pluck('id')
+
+    expect(response).to be_successful
+    expect(transactions.count).to eq(3)
+    expect(transaction_ids).to include(transaction1.id.to_s)
+    expect(transaction_ids).to include(transaction2.id.to_s)
+    expect(transaction_ids).to include(transaction3.id.to_s)
+    expect(transaction_ids).to_not include(transaction4.id.to_s)
+    expect(transaction_ids).to_not include(transaction5.id.to_s)
+  end
 end

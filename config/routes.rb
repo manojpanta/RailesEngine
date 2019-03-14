@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         get 'find_all', to: 'search#index'
       end
 
-      resources :invoices, only: [:show] do
+      resources :invoices, only: [:show, :index] do
         get 'items', to: 'invoices/items#index'
         get 'transactions', to: 'invoices/transactions#index'
         get 'invoice_items', to: 'invoices/invoice_items#index'
@@ -58,11 +58,10 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
       end
-
-
-
-      resources :customers
-      resources :invoices, only: [:index]
+      resources :customers, only: [:show, :index] do
+        get 'invoices', to: 'customers/invoices#index'
+        get 'transactions', to: 'customers/transactions#index'
+      end
     end
   end
 end
