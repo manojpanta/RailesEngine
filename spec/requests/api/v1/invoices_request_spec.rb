@@ -115,4 +115,25 @@ describe "Invoices API" do
     expect(transaction_ids).to include(transaction2.id.to_s)
     expect(transaction_ids).to include(transaction3.id.to_s)
   end
+
+  it "returns a collection of associated invoice_items" do
+    invoice = create(:invoice)
+
+    invoice_item1 = create(:invoice_item, invoice: invoice)
+    invoice_item2 = create(:invoice_item, invoice: invoice)
+    invoice_item3 = create(:invoice_item, invoice: invoice)
+
+    get "/api/v1/invoices/#{invoice.id}/invoice_items"
+
+    invoice_items = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_items.count).to eq(3)
+
+    invoice_item_ids = invoice_items.pluck('id')
+
+    expect(invoice_item_ids).to include(invoice_item1.id.to_s)
+    expect(invoice_item_ids).to include(invoice_item2.id.to_s)
+    expect(invoice_item_ids).to include(invoice_item3.id.to_s)
+  end
 end
