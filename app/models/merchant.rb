@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
+  has_many :customers, through: :invoices
 
   def self.merchants_ranked_by_most_revenue(quantity)
     select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) as revenue')
@@ -32,5 +33,26 @@ class Merchant < ApplicationRecord
     .select('sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
     .joins(:invoice_items, :transactions)
     .where(transactions: {result: 'success'})[0]
+  end
+
+  def favorite_customer
+    invoices
+    .joins(:transactions, :customer)
+    .select('customers.*, count(transactions.*) as transaction_count')
+    .joins(:transactions)
+    .where(transactions: {result: 'success'})
+    .order('transaction_count DESC')
+    .group('customers.id')
+    .limit(1)
+    .first
+    ## Or WE could go following way
+    customers ## since we already have relationship setup
+    .select('customers.*, count(transactions.*) as transaction_count')
+    .joins(:transactions)
+    .where(transactions: {result: 'success'})
+    .order('transaction_count DESC')
+    .group('customers.id')
+    .limit(1)
+    .first
   end
 end
