@@ -21,9 +21,16 @@ class Merchant < ApplicationRecord
   end
 
   def self.revenue_by_date_across_all_merchant(date)
-      select("SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue")
-      .joins(invoices: [:invoice_items, :transactions])
-      .where(transactions: { result: 'success' })
-      .where(invoices: { created_at: date.beginning_of_day..date.end_of_day})[0]
+    select("SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue")
+    .joins(invoices: [:invoice_items, :transactions])
+    .where(transactions: { result: 'success' })
+    .where(invoices: { created_at: date.beginning_of_day..date.end_of_day})[0]
+  end
+
+  def merchant_revenue
+    invoices
+    .select('sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
+    .joins(:invoice_items, :transactions)
+    .where(transactions: {result: 'success'})[0]
   end
 end

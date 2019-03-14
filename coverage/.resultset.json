@@ -62,6 +62,13 @@
         null,
         1,
         null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/transaction.rb": [
@@ -407,6 +414,13 @@
         1,
         null,
         1,
+        2,
+        null,
+        null
+      ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/merchants/single_merchant_revenue_controller.rb": [
+        1,
+        1,
         1,
         null,
         null
@@ -469,6 +483,6 @@
         0
       ]
     },
-    "timestamp": 1552535285
+    "timestamp": 1552539818
   }
 }
