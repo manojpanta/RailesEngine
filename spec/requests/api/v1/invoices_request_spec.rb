@@ -115,6 +115,7 @@ describe "Invoices API" do
     expect(transaction_ids).to include(transaction1.id.to_s)
     expect(transaction_ids).to include(transaction2.id.to_s)
     expect(transaction_ids).to include(transaction3.id.to_s)
+    expect(transaction_ids).to_not include(transaction5.id.to_s)
   end
 
   it "returns a collection of associated invoice_items" do
@@ -138,42 +139,60 @@ describe "Invoices API" do
     expect(invoice_item_ids).to include(invoice_item1.id.to_s)
     expect(invoice_item_ids).to include(invoice_item2.id.to_s)
     expect(invoice_item_ids).to include(invoice_item3.id.to_s)
+    expect(invoice_item_ids).to_not include(invoice_item4.id.to_s)
+    expect(invoice_item_ids).to_not include(invoice_item5.id.to_s)
   end
 
-  # it "returns a collection of associated items" do
-  #   invoice = create(:invoice)
-  #
-  #   item1 = create(:item)
-  #   item2 = create(:item)
-  #   item3 = create(:item)
-  #
-  #   invoice_item = create(:invoice_item, invoice: invoice, item: item1)
-  #   invoice_item = create(:invoice_item, invoice: invoice, item: item2)
-  #   invoice_item = create(:invoice_item, invoice: invoice, item: item3)
-  #
-  #   get "/api/v1/invoices/#{invoice.id}/items"
-  #
-  #   items = JSON.parse(response.body)["data"]
-  #
-  #   expect(response).to be_successful
-  #   expect(items.count).to eq(3)
-  #
-  #   item_ids = items.pluck('id')
-  #
-  #   expect(item_ids).to include(item1.id.to_s)
-  #   expect(item_ids).to include(item2.id.to_s)
-  #   expect(item_ids).to include(item3.id.to_s)
-  # end
-  #
-  # it "returns associated customer" do
-  #   customer = create(:customer)
-  #   invoice = create(:invoice, customer: customer)
-  #
-  #   get "/api/v1/invoices/#{invoice.id}/customer"
-  #
-  #   customer = JSON.parse(response.body)["data"]
-  #
-  #   expect(response).to be_successful
-  #   expect(customer).to eq(customer)
-  # end
+  it "returns a collection of associated items" do
+    invoice = create(:invoice)
+
+    item1 = create(:item)
+    item2 = create(:item)
+    item3 = create(:item)
+    item4 = create(:item)
+    item5 = create(:item)
+
+    invoice_item = create(:invoice_item, invoice: invoice, item: item1)
+    invoice_item = create(:invoice_item, invoice: invoice, item: item2)
+    invoice_item = create(:invoice_item, invoice: invoice, item: item3)
+
+    get "/api/v1/invoices/#{invoice.id}/items"
+
+    items = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(items.count).to eq(3)
+
+    item_ids = items.pluck('id')
+
+    expect(item_ids).to include(item1.id.to_s)
+    expect(item_ids).to include(item2.id.to_s)
+    expect(item_ids).to include(item3.id.to_s)
+    expect(item_ids).to_not include(item4.id.to_s)
+    expect(item_ids).to_not include(item5.id.to_s)
+  end
+
+  it "returns associated customer" do
+    customer = create(:customer)
+    invoice = create(:invoice, customer: customer)
+
+    get "/api/v1/invoices/#{invoice.id}/customer"
+
+    customer = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(customer).to eq(customer)
+  end
+
+  it "returns associated customer" do
+    merchant = create(:merchant)
+    invoice = create(:invoice, merchant: merchant)
+
+    get "/api/v1/invoices/#{invoice.id}/merchant"
+
+    merchant = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(merchant).to eq(merchant)
+  end
 end
