@@ -71,6 +71,7 @@ describe "Merchants API" do
 
     item = create(:item, merchant: merchant, name: 'item1')
     item2 = create(:item, merchant: merchant, name: 'item2')
+    item3 = create(:item)
 
     get "/api/v1/merchants/#{merchant.id}/items"
 
@@ -86,6 +87,8 @@ describe "Merchants API" do
     merchant = create(:merchant)
     invoice = create(:invoice, merchant: merchant, status: 'shipped')
     invoice2 = create(:invoice, merchant: merchant, status: 'not shipped')
+    invoice3 = create(:invoice)
+    invoice4 = create(:invoice)
 
     get "/api/v1/merchants/#{merchant.id}/invoices"
 

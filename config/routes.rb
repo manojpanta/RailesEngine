@@ -8,9 +8,9 @@ Rails.application.routes.draw do
         get 'most_items', to: 'most_items#index'
         get 'revenue', to: 'revenue#show'
       end
-      resources :merchants do
-        resources :items, only: [:index]
-        resources :invoices, only: [:index]
+      resources :merchants, only: [:show, :index] do
+        get 'items', to: 'merchants/items#index'
+        get 'invoices', to: 'merchants/invoices#index'
       end
       namespace :invoices do
         get 'find', to: 'search#show'
@@ -30,14 +30,19 @@ Rails.application.routes.draw do
         get 'find_all', to: 'search#index'
       end
 
-      resources :invoice_items, only: [:show] do
+      resources :invoice_items, only: [:show, :index] do
         get 'invoice', to: 'invoice_items/invoice#show'
         get 'item', to: 'invoice_items/item#show'
       end
 
-      namespace :customers do
+      namespace :items do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
+      end
+
+      resources :items, only: [:show, :index] do
+        get 'invoice_items', to: 'items/invoice_items#index'
+        get 'merchant', to: 'items/merchant#show'
       end
 
       namespace :transactions do
@@ -45,18 +50,19 @@ Rails.application.routes.draw do
         get 'find_all', to: 'search#index'
       end
 
+      resources :transactions, only: [:show, :index] do
+        get 'invoice', to: 'transactions/invoice#show'
+      end
 
-
-      namespace :items do
+      namespace :customers do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
       end
 
+
+
       resources :customers
       resources :invoices, only: [:index]
-      resources :transactions
-      resources :items
-      resources :invoice_items
     end
   end
 end
