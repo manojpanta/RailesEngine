@@ -174,25 +174,29 @@ describe "Invoices API" do
 
   it "returns associated customer" do
     customer = create(:customer)
+    customer2 = create(:customer)
     invoice = create(:invoice, customer: customer)
 
     get "/api/v1/invoices/#{invoice.id}/customer"
 
-    customer = JSON.parse(response.body)["data"]
+    customer_r = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(customer).to eq(customer)
+    expect(customer_r["attributes"]["id"]).to eq(customer.id)
+    expect(customer_r["attributes"]["id"]).to_not eq(customer2.id)
   end
 
   it "returns associated customer" do
     merchant = create(:merchant)
+    merchant2 = create(:merchant)
     invoice = create(:invoice, merchant: merchant)
 
     get "/api/v1/invoices/#{invoice.id}/merchant"
 
-    merchant = JSON.parse(response.body)["data"]
+    merchant_r = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(merchant).to eq(merchant)
+    expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
+    expect(merchant_r["attributes"]["id"]).to_not eq(merchant2.id)
   end
 end

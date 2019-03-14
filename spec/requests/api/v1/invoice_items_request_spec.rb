@@ -103,6 +103,7 @@ describe "Invoice Items API" do
 
   it " returns the associated invoice" do
     invoice = create(:invoice)
+    invoice2 = create(:invoice)
     invoice_item = create(:invoice_item, invoice: invoice)
 
     get "/api/v1/invoice_items/#{invoice_item.id}/invoice"
@@ -110,6 +111,21 @@ describe "Invoice Items API" do
     invoice_r = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(invoice_r).to eq(invoice)
+    expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
+    expect(invoice_r["attributes"]["id"]).to_not eq(invoice2.id)
+  end
+
+  it " returns the associated item" do
+    item = create(:item)
+    item2 = create(:item)
+    invoice_item = create(:invoice_item, item: item)
+
+    get "/api/v1/invoice_items/#{invoice_item.id}/item"
+
+    item_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(item_r["attributes"]["id"]).to eq(item.id)
+    expect(item_r["attributes"]["id"]).to_not eq(item2.id)
   end
 end
