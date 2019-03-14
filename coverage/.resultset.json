@@ -425,6 +425,13 @@
         null,
         null
       ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/merchants/favorite_customer_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/transactions_controller.rb": [
         1,
         1,
@@ -483,6 +490,6 @@
         0
       ]
     },
-    "timestamp": 1552539818
+    "timestamp": 1552541767
   }
 }

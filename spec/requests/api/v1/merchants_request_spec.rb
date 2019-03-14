@@ -308,6 +308,7 @@ describe "Merchants API" do
     expect(response).to be_successful
     expect(revenue["attributes"]["total_revenue"].to_i,).to eq(expected_revenue.to_i)
   end
+
   it " returns the total revenue for that merchant across successful transactions" do
     merchant = create(:merchant)
 
@@ -334,5 +335,37 @@ describe "Merchants API" do
 
     expect(response).to be_successful
     expect(revenue["attributes"]["total_revenue"].to_i).to eq(expected_revenue_for_merchant)
+  end
+
+  it " returns the customer who has conducted the most total number of successful transactions." do
+    merchant = create(:merchant)
+
+    customer = create(:customer)
+    customer1 = create(:customer)
+    customer2 = create(:customer)
+
+    ##customer  has 3 invoices that has three successful transactions
+    invoice = create(:invoice, merchant: merchant, customer: customer)
+    invoice1 = create(:invoice, merchant: merchant, customer: customer)
+    invoice2 = create(:invoice, merchant: merchant, customer: customer)
+
+    transaction1 = create(:transaction, invoice: invoice, result: "success")
+    transaction2 = create(:transaction, invoice: invoice1, result: "success")
+    transaction3 = create(:transaction, invoice: invoice2, result: "success")
+    ##customer 1 has 1 invoice that has 1 successful transaction
+    invoice3 = create(:invoice, merchant: merchant, customer: customer1)
+    transaction4 = create(:transaction, invoice: invoice2, result: "success")
+    ##customer 2 has 2 invoice that has 2 successful transaction
+    invoice4 = create(:invoice, merchant: merchant, customer: customer2)
+    invoice5 = create(:invoice, merchant: merchant, customer: customer2)
+    transaction5 = create(:transaction, invoice: invoice4, result: "success")
+    transaction6 = create(:transaction, invoice: invoice5, result: "success")
+
+    get "/api/v1/merchants/#{merchant.id}/favorite_customer"
+
+    favorite_customer = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(favorite_customer["attributes"]["id"]).to eq(customer.id)
   end
 end
