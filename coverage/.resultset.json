@@ -22,6 +22,7 @@
         1,
         1,
         1,
+        1,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/item.rb": [
@@ -214,7 +215,7 @@
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/items_controller.rb": [
         1,
         1,
-        2,
+        3,
         null,
         null,
         1,
@@ -228,7 +229,7 @@
         1,
         null,
         1,
-        13,
+        16,
         null,
         null
       ],
@@ -367,6 +368,6 @@
         0
       ]
     },
-    "timestamp": 1552527965
+    "timestamp": 1552528227
   }
 }
