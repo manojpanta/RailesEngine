@@ -32,6 +32,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
   it "find transaction  by credit_card_number" do
     transaction = create(:transaction, credit_card_number: 4654405418249632)
 
@@ -42,6 +43,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
   it "find transaction  by result" do
     transaction = create(:transaction, result: "success")
 
@@ -52,6 +54,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
   it "find transaction  by invoice_id" do
     invoice = create(:invoice)
     transaction = create(:transaction, invoice: invoice)
@@ -63,6 +66,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
   it "find transaction  by credit_card_expiration_date" do
     transaction = create(:transaction,credit_card_expiration_date: 1233)
 
@@ -73,6 +77,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+
   it "find transaction  by created_at" do
     transaction1 = create(:transaction)
     transaction = create(:transaction,created_at: "2012-03-27T14:56:04.000Z")
@@ -84,6 +89,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
+  
   it "find transaction  by updated_at" do
     transaction1 = create(:transaction)
     transaction = create(:transaction,updated_at: "2012-03-27T14:56:04.000Z")

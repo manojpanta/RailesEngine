@@ -13,6 +13,7 @@ describe "Invoices API" do
     expect(response).to be_successful
     expect(invoices.count).to eq(3)
   end
+
   it "returns a Invoice" do
     invoice = create(:invoice)
 
@@ -72,6 +73,7 @@ describe "Invoices API" do
     expect(response).to be_successful
     expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
   end
+
   it "find invoice  by created_at" do
     invoice1 = create(:invoice)
     invoice = create(:invoice, created_at: '2012-03-27T14:56:04.000Z')
@@ -83,6 +85,7 @@ describe "Invoices API" do
     expect(response).to be_successful
     expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
   end
+
   it "find invoice  by updated_at" do
     invoice1 = create(:invoice)
     invoice = create(:invoice, updated_at: '2012-03-27T14:56:04.000Z')
@@ -101,7 +104,6 @@ describe "Invoices API" do
     transaction2 = create(:transaction, invoice: invoice)
     transaction3 = create(:transaction, invoice: invoice)
     transaction5 = create(:transaction)
-
 
     get "/api/v1/invoices/#{invoice.id}/transactions"
 

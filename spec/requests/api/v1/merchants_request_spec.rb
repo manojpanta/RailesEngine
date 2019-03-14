@@ -21,6 +21,7 @@ describe "Merchants API" do
     expect(response).to be_successful
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
+
   it "find merchant  by id" do
     merchant = create(:merchant)
 
@@ -54,6 +55,7 @@ describe "Merchants API" do
     expect(response).to be_successful
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
+
   it "find merchant  by updated_at" do
     merchant1 = create(:merchant)
     merchant = create(:merchant, updated_at: "2012-03-27T14:56:04.000Z")
@@ -170,6 +172,7 @@ describe "Merchants API" do
     expect(merchants[1]["attributes"]["id"]).to eq(merchant1.id)
     expect(merchants.last["attributes"]["id"]).to eq(merchant2.id)
   end
+
   it "can return merchants ranked based on most items sold" do
     ##create customer
     customer = create(:customer)
@@ -224,7 +227,6 @@ describe "Merchants API" do
 
     ## We should expect merchant on top of ranking and merchant2 on bottom.
     ##because they are selling items with same unit price but quantities sold are 30, 20, 10, 7 for merchant, merchant1, merchant2, and merchant3 respectively.
-
     get "/api/v1/merchants/most_items?quantity=3"
 
     merchants = JSON.parse(response.body)["data"]
@@ -236,6 +238,7 @@ describe "Merchants API" do
     expect(merchants[1]["attributes"]["id"]).to eq(merchant1.id)
     expect(merchants.last["attributes"]["id"]).to eq(merchant2.id)
   end
+
   it "can return revenue by date across all merchants" do
     ##create customer
     customer = create(:customer)
@@ -304,5 +307,32 @@ describe "Merchants API" do
 
     expect(response).to be_successful
     expect(revenue["attributes"]["total_revenue"].to_i,).to eq(expected_revenue.to_i)
+  end
+  it " returns the total revenue for that merchant across successful transactions" do
+    merchant = create(:merchant)
+
+    invoice = create(:invoice, merchant: merchant)
+    invoice1 = create(:invoice, merchant: merchant)
+    invoice2 = create(:invoice, merchant: merchant)
+
+    invoice_item1 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice)
+    invoice_item2 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice1)
+    invoice_item3 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice2)
+    invoice_item4 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice2)
+    invoice_item5 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice)
+    invoice_item6 = create(:invoice_item, unit_price: 1000, quantity: 10, invoice: invoice1)
+
+    transaction = create(:transaction, invoice: invoice, result: "success")
+    transaction = create(:transaction, invoice: invoice1, result: "success")
+    transaction = create(:transaction, invoice: invoice2, result: "success")
+
+    expected_revenue_for_merchant = 600
+
+    get "/api/v1/merchants/#{merchant.id}/revenue"
+
+    revenue = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(revenue["attributes"]["revenue"].to_i).to eq(expected_revenue_for_merchant)
   end
 end

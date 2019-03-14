@@ -21,6 +21,7 @@ describe "Customers API" do
     expect(response).to be_successful
     expect(customer_r["attributes"]["first_name"]).to eq('me')
   end
+
   it "find by customer id name" do
     customer = create(:customer)
 
@@ -31,6 +32,7 @@ describe "Customers API" do
     expect(response).to be_successful
     expect(customer_r["attributes"]["id"]).to eq(customer.id)
   end
+
   it "find by customer first name" do
     customer = create(:customer, first_name:'me')
 
@@ -41,6 +43,7 @@ describe "Customers API" do
     expect(response).to be_successful
     expect(customer_r["attributes"]["first_name"]).to eq(customer.first_name)
   end
+  
   it "find by customer last name" do
     customer = create(:customer, last_name:'me')
 

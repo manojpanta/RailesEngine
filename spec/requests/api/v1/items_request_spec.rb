@@ -10,6 +10,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(items.count).to eq(3)
   end
+
   it "returns an Item" do
     item = create(:item)
 
@@ -53,6 +54,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
+
   it "find item  by unit_price" do
     item = create(:item, unit_price: 1234)
 
@@ -63,6 +65,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
+
   it "find item  by merchant id" do
     merchant = create(:merchant)
 
@@ -87,6 +90,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
+  
   it "find item  by updated_at" do
     item1 = create(:item)
     item = create(:item, updated_at: "2012-03-27T14:56:04.000Z")
