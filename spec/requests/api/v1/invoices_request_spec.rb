@@ -14,9 +14,6 @@ describe "Invoices API" do
     expect(invoices.count).to eq(3)
   end
   it "returns a Invoice" do
-    # merchant = create(:merchant)
-    # customer = create(:customer)
-
     invoice = create(:invoice)
 
     get "/api/v1/invoices/#{invoice.id}"
@@ -96,5 +93,26 @@ describe "Invoices API" do
 
     expect(response).to be_successful
     expect(invoice_r["attributes"]["id"]).to eq(invoice.id)
+  end
+
+  it "returns a collection of associated transactions" do
+    invoice = create(:invoice)
+    transaction1 = create(:transaction, invoice: invoice)
+    transaction2 = create(:transaction, invoice: invoice)
+    transaction3 = create(:transaction, invoice: invoice)
+
+
+    get "/api/v1/invoices/#{invoice.id}/transactions"
+
+    transactions = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transactions.count).to eq(3)
+
+    transaction_ids = transactions.pluck('id')
+
+    expect(transaction_ids).to include(transaction1.id.to_s)
+    expect(transaction_ids).to include(transaction2.id.to_s)
+    expect(transaction_ids).to include(transaction3.id.to_s)
   end
 end
