@@ -43,6 +43,14 @@
         1,
         1,
         1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/merchant.rb": [
@@ -273,7 +281,7 @@
         1,
         null,
         1,
-        17,
+        19,
         null,
         null
       ],
@@ -348,7 +356,7 @@
         null,
         null,
         1,
-        2,
+        1,
         null,
         null
       ],
@@ -388,6 +396,13 @@
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/items/merchant_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/items/most_revenue_controller.rb": [
         1,
         1,
         1,
@@ -554,6 +569,6 @@
         0
       ]
     },
-    "timestamp": 1552669837
+    "timestamp": 1552670592
   }
 }
