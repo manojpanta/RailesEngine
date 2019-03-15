@@ -5,6 +5,18 @@
         1,
         1,
         1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/application_record.rb": [
@@ -34,6 +46,7 @@
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/merchant.rb": [
+        1,
         1,
         1,
         1,
@@ -69,6 +82,15 @@
         null,
         null,
         1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
         null,
         null,
         1,
@@ -166,6 +188,19 @@
         1,
         17,
         null,
+        null
+      ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/customers/favorite_merchant_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/serializers/merchant_serializer.rb": [
+        1,
+        1,
+        1,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/invoice_items_controller.rb": [
@@ -306,12 +341,6 @@
         null,
         null
       ],
-      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/serializers/merchant_serializer.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/items_controller.rb": [
         1,
         1,
@@ -444,6 +473,10 @@
         1,
         1,
         1,
+        0,
+        null,
+        1,
+        null,
         null,
         null
       ],
@@ -521,6 +554,6 @@
         0
       ]
     },
-    "timestamp": 1552544473
+    "timestamp": 1552669360
   }
 }

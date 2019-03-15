@@ -62,10 +62,11 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
       end
-      
+
       resources :customers, only: [:show, :index] do
         get 'invoices', to: 'customers/invoices#index'
         get 'transactions', to: 'customers/transactions#index'
+        get 'favorite_merchant', to: 'customers/favorite_merchant#show'
       end
     end
   end

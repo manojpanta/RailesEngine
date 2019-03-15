@@ -43,7 +43,7 @@ describe "Customers API" do
     expect(response).to be_successful
     expect(customer_r["attributes"]["first_name"]).to eq(customer.first_name)
   end
-  
+
   it "find by customer last name" do
     customer = create(:customer, last_name:'me')
 
@@ -124,5 +124,36 @@ describe "Customers API" do
     expect(transaction_ids).to include(transaction3.id.to_s)
     expect(transaction_ids).to_not include(transaction4.id.to_s)
     expect(transaction_ids).to_not include(transaction5.id.to_s)
+  end
+
+  it "returns a merchant where the customer has conducted the most successful transactions" do
+    customer = create(:customer)
+    ##we have 3 merchants
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
+    merchant3 = create(:merchant)
+    ##lets create invoices for merchants with customer customer
+    invoice1 = create(:invoice, customer: customer, merchant: merchant)
+    invoice2 = create(:invoice, customer: customer, merchant: merchant)
+    invoice3 = create(:invoice, customer: customer, merchant: merchant)
+    invoice4 = create(:invoice, customer: customer, merchant: merchant2)
+    invoice5 = create(:invoice, customer: customer, merchant: merchant3)
+    ##we created 3 invoices for merchant , lets create 3 successful transactions for that merchant
+    ## and merchant will be the favorite merchant for customer
+    transaction1 = create(:transaction, invoice: invoice1, result: 'success' )
+    transaction2 = create(:transaction, invoice: invoice2, result: 'success' )
+    transaction3 = create(:transaction, invoice: invoice3, result: 'success' )
+    transaction4 = create(:transaction, invoice: invoice4, result: 'success' )
+    transaction5 = create(:transaction, invoice: invoice5, result: 'success' )
+
+    get "/api/v1/customers/#{customer.id}/favorite_merchant"
+
+
+    favorite_merchant = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(favorite_merchant["attributes"]["id"]).to eq(merchant.id)
+    expect(favorite_merchant["attributes"]["id"]).to_not eq(merchant2.id)
+    expect(favorite_merchant["attributes"]["id"]).to_not eq(merchant2.id)
   end
 end
