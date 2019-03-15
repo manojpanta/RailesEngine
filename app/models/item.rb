@@ -21,10 +21,9 @@ class Item < ApplicationRecord
 
   def best_day
     invoices
-    .select('invoices.*, count(invoices.*) as invoices_count')
-    .order('invoices_count DESC')
+    .select('invoices.*, sum(invoice_items.quantity) as sales_count')
+    .order('sales_count DESC, invoices.created_at DESC')
     .group(:id)
-    .limit(1)
     .first
   end
 end

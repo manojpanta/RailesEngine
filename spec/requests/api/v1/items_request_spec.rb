@@ -205,6 +205,6 @@ describe "Items API" do
     day_returned = JSON.parse(response.body)["data"]
 
     expect(response).to be_successful
-    expect(day_returned["attributes"]["date"]).to eq(invoice.created_at.to_date.to_s)
+    expect(day_returned["attributes"]["best_day"]).to eq("2012-03-27T14:56:04.000Z")
   end
 end

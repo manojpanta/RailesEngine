@@ -1,8 +1,8 @@
 class BestDaySerializer
   include FastJsonapi::ObjectSerializer
-  attributes :date
+  attributes :best_day
 
-  attribute :date do |object|
-    object.created_at.to_date.to_s
+  attribute :best_day do |object|
+    object.created_at
   end
 end
