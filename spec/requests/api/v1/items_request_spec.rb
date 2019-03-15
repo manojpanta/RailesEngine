@@ -90,7 +90,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
-  
+
   it "find item  by updated_at" do
     item1 = create(:item)
     item = create(:item, updated_at: "2012-03-27T14:56:04.000Z")
@@ -132,5 +132,30 @@ describe "Items API" do
     expect(response).to be_successful
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
     expect(merchant_r["attributes"]["id"]).to_not eq(merchant2.id)
+  end
+
+  it "returns the top x items ranked by total revenue generated" do
+    item1 = create(:item)
+    item2 = create(:item)
+    item3 = create(:item)
+
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
+    # item 1 above generated 120.00 dollars
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
+    # item 2 above generated 80.00 dollars
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item3)
+    # item 3 above generated 40.00 dollars
+
+    get "/api/v1/items/most_revenue?quantity=2"
+
+    items_returned = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(items_returned.count).to eq(2)
+    expect(items_returned.first["attributes"]["id"]).to eq(item1.id)
+    expect(items_returned.last["attributes"]["id"]).to eq(item2.id)
   end
 end
