@@ -183,4 +183,28 @@ describe "Items API" do
     expect(items_returned.first["attributes"]["id"]).to eq(item1.id)
     expect(items_returned.last["attributes"]["id"]).to eq(item2.id)
   end
+
+  it "returns best day for item based on most sales" do
+    item1 = create(:item)
+
+    invoice = create(:invoice, created_at: "2012-03-27T14:56:04.000Z")
+
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice)
+    # item 1 is sold 3 times on 2012-03-27T14:56:04.000Z
+    invoice1 = create(:invoice, created_at: "2012-04-27T14:56:04.000Z")
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice1)
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice1)
+    # item 1 is sold 2 times on 2012-04-27T14:56:04.000Z
+    invoice2 = create(:invoice, created_at: "2012-05-27T14:56:04.000Z")
+    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1, invoice: invoice2)
+    # item 1 is sold 1 time on 2012-04-27T14:56:04.000Z
+    get "/api/v1/items/#{item1.id}/best_day"
+
+    day_returned = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(day_returned["attributes"]["date"]).to eq(invoice.created_at.to_date.to_s)
+  end
 end

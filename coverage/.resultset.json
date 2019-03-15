@@ -43,6 +43,7 @@
         1,
         1,
         1,
+        1,
         null,
         1,
         null,
@@ -53,6 +54,15 @@
         null,
         null,
         1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
         null,
         null,
         null,
@@ -424,6 +434,23 @@
         null,
         null
       ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/items/best_day_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/serializers/best_day_serializer.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/merchants_controller.rb": [
         1,
         1,
@@ -584,6 +611,6 @@
         0
       ]
     },
-    "timestamp": 1552670952
+    "timestamp": 1552673627
   }
 }
