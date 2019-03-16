@@ -138,17 +138,8 @@ describe "Items API" do
     item1 = create(:item)
     item2 = create(:item)
     item3 = create(:item)
-
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    # item 1 above generated 120.00 dollars
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
-    # item 2 above generated 80.00 dollars
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item3)
-    # item 3 above generated 40.00 dollars
-
+  
+    allow(Item).to receive(:most_revenue_items).with("2").and_return([item1, item2])
     get "/api/v1/items/most_revenue?quantity=2"
 
     items_returned = JSON.parse(response.body)["data"]

@@ -60,7 +60,7 @@
         null,
         null,
         null,
-        1,
+        2,
         null,
         null,
         1,
@@ -232,7 +232,7 @@
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/customers/favorite_merchant_controller.rb": [
         1,
         1,
-        2,
+        1,
         null,
         null
       ],
@@ -631,6 +631,6 @@
         0
       ]
     },
-    "timestamp": 1552770423
+    "timestamp": 1552772359
   }
 }
