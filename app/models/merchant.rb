@@ -65,4 +65,16 @@ class Merchant < ApplicationRecord
     .limit(1)
     .first
   end
+
+  def customers_with_pending_invoices
+    Customer.find_by_sql ["SELECT customers.* FROM customers
+                  FULL OUTER JOIN invoices ON customers.id = invoices.customer_id
+                  FULL OUTER JOIN transactions ON invoices.id = transactions.invoice_id
+                  WHERE invoices.merchant_id = #{id}
+                  EXCEPT
+                  SELECT customers.* FROM customers
+                  FULL OUTER JOIN invoices ON customers.id = invoices.customer_id
+                  FULL OUTER JOIN transactions ON invoices.id = transactions.invoice_id
+                  WHERE invoices.merchant_id = #{id} and transactions.result = 'success';"]
+  end
 end

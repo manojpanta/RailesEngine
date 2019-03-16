@@ -156,4 +156,18 @@ describe "Customers API" do
     expect(favorite_merchant["attributes"]["id"]).to_not eq(merchant2.id)
     expect(favorite_merchant["attributes"]["id"]).to_not eq(merchant2.id)
   end
+
+
+  it "returns a merchant where the customer has conducted the most successful transactions" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    allow(Customer).to receive(:favorite_merchant).with("#{customer.id}").and_return(merchant)
+
+    get "/api/v1/customers/#{customer.id}/favorite_merchant"
+
+    favorite_merchant = JSON.parse(response.body)["data"]
+    
+    expect(response).to be_successful
+    expect(favorite_merchant["attributes"]["id"]).to eq(merchant.id)
+  end
 end

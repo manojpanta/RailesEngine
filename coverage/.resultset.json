@@ -6,8 +6,10 @@
         1,
         1,
         1,
+        1,
         null,
         1,
+        null,
         null,
         null,
         null,
@@ -138,6 +140,18 @@
         null,
         1,
         null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/models/transaction.rb": [
@@ -218,7 +232,7 @@
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/customers/favorite_merchant_controller.rb": [
         1,
         1,
-        1,
+        2,
         null,
         null
       ],
@@ -597,6 +611,13 @@
         0,
         0
       ],
+      "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/controllers/api/v1/merchants/customers_with_pending_invoices_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "/Users/manojpanta/Turing/3module/projects/RaillsEngine/railsEngine/app/channels/application_cable/connection.rb": [
         0,
         0,
@@ -610,6 +631,6 @@
         0
       ]
     },
-    "timestamp": 1552674667
+    "timestamp": 1552770423
   }
 }
