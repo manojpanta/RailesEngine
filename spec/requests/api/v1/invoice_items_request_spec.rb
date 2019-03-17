@@ -105,6 +105,21 @@ describe "Invoice Items API" do
     expect(invoice_item_r["attributes"]["id"]).to eq(invoice_item.id)
   end
 
+  it "find all invoice items by updated_at" do
+    invoice_item1 = create(:invoice_item)
+    invoice_item2 = create(:invoice_item, updated_at: "2012-03-27T14:56:04.000Z")
+    invoice_item3 = create(:invoice_item, updated_at: "2012-03-27T14:56:04.000Z")
+
+    get "/api/v1/invoice_items/find_all?updated_at=#{invoice_item2.updated_at}"
+
+    invoice_items_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_items_r.count).to eq(2)
+    expect(invoice_items_r.first["attributes"]["id"]).to eq(invoice_item2.id)
+    expect(invoice_items_r.last["attributes"]["id"]).to eq(invoice_item3.id)
+  end
+
   it " returns the associated invoice" do
     invoice = create(:invoice)
     invoice2 = create(:invoice)

@@ -80,6 +80,22 @@ describe "Customers API" do
     expect(customer_r["attributes"]["id"]).to eq(customer.id)
   end
 
+  it "find all by customer updated at" do
+    customer1 = create(:customer)
+    customer2 = create(:customer, updated_at: "2012-03-27T14:56:04.000Z" )
+    customer3 = create(:customer, updated_at: "2012-03-27T14:56:04.000Z" )
+
+    get "/api/v1/customers/find_all?updated_at=#{customer2.updated_at}"
+
+
+    customers_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(customers_r.count).to eq(2)
+    expect(customers_r.first["attributes"]["id"]).to eq(customer2.id)
+    expect(customers_r.last["attributes"]["id"]).to eq(customer3.id)
+  end
+
   it "returns a collection of associated invoices" do
     customer = create(:customer)
     invoice1 = create(:invoice, customer: customer)

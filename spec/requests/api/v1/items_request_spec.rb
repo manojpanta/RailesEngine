@@ -138,7 +138,7 @@ describe "Items API" do
     item1 = create(:item)
     item2 = create(:item)
     item3 = create(:item)
-  
+
     allow(Item).to receive(:most_revenue_items).with("2").and_return([item1, item2])
     get "/api/v1/items/most_revenue?quantity=2"
 
@@ -153,17 +153,7 @@ describe "Items API" do
   it "returns the top x item instances ranked by total number sold" do
     item1 = create(:item)
     item2 = create(:item)
-    item3 = create(:item)
-
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item1)
-    # item 1 has sold 12
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item2)
-    # item 2 has sold 8
-    invoice_item = create(:invoice_item, unit_price: 1000, quantity: 4, item: item3)
-    # item 3 has sold 4
+    allow(Item).to receive(:most_items).with("2").and_return([item1, item2])
 
     get "/api/v1/items/most_items?quantity=2"
 
