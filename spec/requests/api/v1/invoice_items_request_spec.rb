@@ -120,6 +120,21 @@ describe "Invoice Items API" do
     expect(invoice_items_r.last["attributes"]["id"]).to eq(invoice_item3.id)
   end
 
+  it "find all invoice items by unit_price " do
+    invoice_item1 = create(:invoice_item, unit_price: 1234)
+    invoice_item2 = create(:invoice_item, unit_price: 1234)
+    invoice_item3 = create(:invoice_item)
+
+    get "/api/v1/invoice_items/find_all?unit_price=1234"
+
+    invoice_items_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(invoice_items_r.count).to eq(2)
+    expect(invoice_items_r.first["attributes"]["id"]).to eq(invoice_item1.id)
+    expect(invoice_items_r.last["attributes"]["id"]).to eq(invoice_item2.id)
+  end
+
   it " returns the associated invoice" do
     invoice = create(:invoice)
     invoice2 = create(:invoice)

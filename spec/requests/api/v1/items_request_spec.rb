@@ -66,6 +66,21 @@ describe "Items API" do
     expect(item_r["attributes"]["id"]).to eq(item.id)
   end
 
+  it "finds all items  by unit_price" do
+    item1 = create(:item, unit_price: 1234)
+    item2 = create(:item, unit_price: 1234)
+    item3 = create(:item)
+
+    get "/api/v1/items/find_all?unit_price=#{item1.unit_price}"
+
+    items_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(items_r.count).to eq(2)
+    expect(items_r.first["attributes"]["id"]).to eq(item1.id)
+    expect(items_r.second["attributes"]["id"]).to eq(item2.id)
+  end
+
   it "find item  by merchant id" do
     merchant = create(:merchant)
 
@@ -101,6 +116,21 @@ describe "Items API" do
 
     expect(response).to be_successful
     expect(item_r["attributes"]["id"]).to eq(item.id)
+  end
+
+  it "find all items  by updated_at" do
+    item1 = create(:item)
+    item2 = create(:item, updated_at: "2012-03-27T14:56:04.000Z")
+    item3 = create(:item, updated_at: "2012-03-27T14:56:04.000Z")
+
+    get "/api/v1/items/find_all?updated_at=#{item2.updated_at}"
+
+    items_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(items_r.count).to eq(2)
+    expect(items_r.first["attributes"]["id"]).to eq(item2.id)
+    expect(items_r.last["attributes"]["id"]).to eq(item3.id)
   end
 
   it "returns a collection of associated invoice items" do

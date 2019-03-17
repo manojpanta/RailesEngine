@@ -68,6 +68,21 @@ describe "Merchants API" do
     expect(merchant_r["attributes"]["id"]).to eq(merchant.id)
   end
 
+  it "find all merchants  by updated_at" do
+    merchant1 = create(:merchant)
+    merchant2 = create(:merchant, updated_at: "2012-03-27T14:56:04.000Z")
+    merchant3 = create(:merchant, updated_at: "2012-03-27T14:56:04.000Z")
+
+    get "/api/v1/merchants/find_all?updated_at=#{merchant2.updated_at}"
+
+    merchants_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(merchants_r.count).to eq(2)
+    expect(merchants_r.first["attributes"]["id"]).to eq(merchant2.id)
+    expect(merchants_r.last["attributes"]["id"]).to eq(merchant3.id)
+  end
+
   it "returns all items for a merchant" do
     merchant = create(:merchant)
 
@@ -318,5 +333,25 @@ describe "Merchants API" do
 
     expect(response).to be_successful
     expect(favorite_customer["attributes"]["id"]).to eq(customer.id)
+  end
+
+  it " returns single merchant revenue by date " do
+    merchant = create(:merchant)
+
+    invoice = create(:invoice, merchant: merchant, created_at: Date.today)
+    invoice1 = create(:invoice, merchant: merchant, created_at: Date.today)
+
+    invoice_item = create(:invoice_item, unit_price: 1200, quantity: 3, invoice: invoice)
+    invoice_item = create(:invoice_item, unit_price: 1200, quantity: 3, invoice: invoice1)
+
+    transaction1 = create(:transaction, invoice: invoice, result: "success")
+    transaction2 = create(:transaction, invoice: invoice1, result: "success")
+
+    get "/api/v1/merchants/#{merchant.id}/revenue?date=#{invoice.created_at}"
+
+    total_revenue = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(total_revenue["attributes"]['revenue'].to_i).to eq(72.00)
   end
 end

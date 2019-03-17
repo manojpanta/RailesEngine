@@ -89,7 +89,7 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
   end
-  
+
   it "find transaction  by updated_at" do
     transaction1 = create(:transaction)
     transaction = create(:transaction,updated_at: "2012-03-27T14:56:04.000Z")
@@ -100,6 +100,21 @@ describe "Transaction API" do
 
     expect(response).to be_successful
     expect(transaction_r["attributes"]["id"]).to eq(transaction.id)
+  end
+
+  it "find all transactions  by updated_at" do
+    transaction1 = create(:transaction)
+    transaction2 = create(:transaction,updated_at: "2012-03-27T14:56:04.000Z")
+    transaction3 = create(:transaction,updated_at: "2012-03-27T14:56:04.000Z")
+
+    get "/api/v1/transactions/find_all?updated_at=#{transaction2.updated_at}"
+
+    transactions_r = JSON.parse(response.body)["data"]
+
+    expect(response).to be_successful
+    expect(transactions_r.count).to eq(2)
+    expect(transactions_r.first["attributes"]["id"]).to eq(transaction2.id)
+    expect(transactions_r.last["attributes"]["id"]).to eq(transaction3.id)
   end
 
   it "returns the associated invoice" do
