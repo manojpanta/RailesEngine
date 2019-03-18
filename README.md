@@ -42,7 +42,7 @@ Please take a look at `'config/routes.rb'` file for all the available routes.
 
 Running the tests
 
-Run `rspec` in the terminal.
+Run ` rspec ` in the terminal.
 
 
 Author:
