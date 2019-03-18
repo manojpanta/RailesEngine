@@ -34,11 +34,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 * To install dependencies after cloning the app, run in the command line: `bundle install`
-* To setup the database, run: rails db:create `rails db:migrate`
-* To load and migrate data to database run : `rake import:all` from command line
+* To setup the database, run: rails db:create ` rails db:migrate `
+* To load and migrate data to database run : ` rake import:all ` from command line
 
-To run the server on localhost:3000, `run: rails s` from command line
-Please take a look at `'config/routes.rb'` file for all the available routes.
+To run the server on localhost:3000, ` run: rails s ` from command line
+Please take a look at ` 'config/routes.rb' ` file for all the available routes.
 
 Running the tests
 
