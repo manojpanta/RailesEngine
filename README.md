@@ -1,6 +1,6 @@
 Rails Engine is the first project for Back-End Engineering Module 3 at Turing School of Software and Design.This was a solo project.
 
-The purpose of the project include :
+The purposes of building this project include:
 
 * Learn how to to build Single-Responsibility controllers to provide a well-designed and versioned API.
 
@@ -40,10 +40,11 @@ Please take a look at 'config/routes.rb' file for all the available routes.
 
 Running the tests
 
-Run rspec in the terminal.
+Run 'rspec' in the terminal.
 
 
-Author
+Author:
+
 Manoj Panta
 
 To submit any PR please follow the instrctions below:

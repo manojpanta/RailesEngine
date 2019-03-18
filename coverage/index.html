@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-03-17T17:30:02-06:00">2019-03-17T17:30:02-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-03-17T18:29:40-06:00">2019-03-17T18:29:40-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -513,7 +513,7 @@
       <tr>
         <td class="strong"><a href="#fe245375f265e6bbde44d9d0fbb73bc7b4e48870" class="src_link" title="app/models/merchant.rb">app/models/merchant.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>80</td>
+        <td>68</td>
         <td>18</td>
         <td>18</td>
         <td>0</td>
@@ -1118,7 +1118,7 @@
       <tr>
         <td class="strong"><a href="#fe245375f265e6bbde44d9d0fbb73bc7b4e48870" class="src_link" title="app/models/merchant.rb">app/models/merchant.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>80</td>
+        <td>68</td>
         <td>18</td>
         <td>18</td>
         <td>0</td>
@@ -4988,78 +4988,6 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="69">
-          
-          
-          <code class="ruby">  # def customers_with_pending_invoices</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="70">
-          
-          
-          <code class="ruby">  #   Customer.find_by_sql [&quot;SELECT customers.* FROM customers</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="71">
-          
-          
-          <code class="ruby">  #                 FULL OUTER JOIN invoices ON customers.id = invoices.customer_id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="72">
-          
-          
-          <code class="ruby">  #                 FULL OUTER JOIN transactions ON invoices.id = transactions.invoice_id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="73">
-          
-          
-          <code class="ruby">  #                 WHERE invoices.merchant_id = #{id}</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="74">
-          
-          
-          <code class="ruby">  #                 EXCEPT</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="75">
-          
-          
-          <code class="ruby">  #                 SELECT customers.* FROM customers</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="76">
-          
-          
-          <code class="ruby">  #                 FULL OUTER JOIN invoices ON customers.id = invoices.customer_id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="77">
-          
-          
-          <code class="ruby">  #                 FULL OUTER JOIN transactions ON invoices.id = transactions.invoice_id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="78">
-          
-          
-          <code class="ruby">  #                 WHERE invoices.merchant_id = #{id} and transactions.result = &#39;success&#39;;&quot;]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="79">
-          
-          
-          <code class="ruby">  # end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">end</code>
